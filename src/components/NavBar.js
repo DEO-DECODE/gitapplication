@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/auth";
 const NavBar = () => {
   const [searchValue, setSearchValue] = useState("DEO-DECODE");
-  const handleSearch = () => {};
+  const [auth, setAuth] = useAuth();
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setAuth({
+      ...auth,
+      user: searchValue,
+    });
+  };
   return (
     <div>
       <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">

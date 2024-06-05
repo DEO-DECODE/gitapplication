@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/auth";
 
 const UserInfo = () => {
   const [userData, setUserData] = useState(null);
+  const [auth, setAuth] = useAuth();
   const fetchUserData = async () => {
-    const apiUrl = "https://api.github.com/users/DEO-DECODE";
+    const apiUrl = `https://api.github.com/users/${auth.user}`;
     try {
       const response = await fetch(apiUrl);
-    //   console.log(response);
+      //   console.log(response);
       const data = await response.json();
       console.log(data);
       setUserData(data);
@@ -27,7 +29,7 @@ useEffect(() => {
   };
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [auth.user]);
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
